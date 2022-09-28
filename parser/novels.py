@@ -23,9 +23,11 @@ def get_data(html):
     for item in items:
 
         novels.append({
-            "title": item.find("a", class_='Vertical_card__Sxft_').find("h4").getText(),
-            "link": item.find("a", class_='Vertical_card__Sxft_').get("href"),
-            "author": item.find("a", class_='Vertical_card__Sxft_').find("p").getText(),
+              "title": item.find("div", class_="gridItem").find("h4").getText(),
+            "link": item.find("div", class_="gridItem").find("a").get("href"),
+            "author": item.find("div", class_="gridItem").find("p").getText(),
+            
+
 
         })
 
