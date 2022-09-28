@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import bot, dp
+from parser.novels import parser
 import random
 
 
@@ -65,6 +66,16 @@ async def quiz_1(message: types.Message):
         open_period=60,
         reply_markup=markup
     )
+async def novels_parser(message: types.Message):
+    novels = parser()
+    for novel in novels:
+        await bot.send_message(
+            message.from_user.id,
+            f"{novel['link']}\n\n"
+            f"{novel['title']}\n"
+            f"{novel['author']}\n\n"
+
+        )
 
 
 def register_handlers_client(dp: Dispatcher):
@@ -73,3 +84,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_start, commands=['start'])
     dp.register_message_handler(quiz_1, commands=['quiz'])
     dp.register_message_handler(command_help, commands=['help'])
+    dp.register_message_handler(novels_parser, commands=['novels'])
